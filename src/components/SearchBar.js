@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Fuse from "fuse.js";
 
 const API_KEY = "65b8c81a835e49e2a499028aeaf7ab9b";
@@ -17,22 +17,20 @@ const getTrendingMovies = async () => {
 
 const SearchBar = ({ onResults }) => {
   const [query, setQuery] = useState("");
-  const [typingTimeout, setTypingTimeout] = useState(null);
   const [allResults, setAllResults] = useState([]);
+  const debounceTimeout = useRef(null); 
 
   useEffect(() => {
-    if (!query.trim()) {
-      getTrendingMovies().then(onResults); // Show trending movies when search is cleared
-      return;
-    }
+    if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
 
-    if (typingTimeout) clearTimeout(typingTimeout);
+    debounceTimeout.current = setTimeout(async () => {
+      if (!query.trim()) {
+        getTrendingMovies().then(onResults);
+        return;
+      }
 
-    const timeout = setTimeout(async () => {
       try {
-        const response = await fetch(
-          `${BASE_URL}/search/multi?api_key=${API_KEY}&query=${query}`
-        );
+        const response = await fetch(`${BASE_URL}/search/multi?api_key=${API_KEY}&query=${query}`);
         const data = await response.json();
         setAllResults(data.results || []);
       } catch (error) {
@@ -41,7 +39,7 @@ const SearchBar = ({ onResults }) => {
       }
     }, 500);
 
-    setTypingTimeout(timeout);
+    return () => clearTimeout(debounceTimeout.current); 
   }, [query]);
 
   useEffect(() => {
