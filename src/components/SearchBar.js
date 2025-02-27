@@ -18,7 +18,7 @@ const getTrendingMovies = async () => {
 const SearchBar = ({ onResults }) => {
   const [query, setQuery] = useState("");
   const [allResults, setAllResults] = useState([]);
-  const debounceTimeout = useRef(null); 
+  const debounceTimeout = useRef(null);
 
   useEffect(() => {
     if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
@@ -39,14 +39,15 @@ const SearchBar = ({ onResults }) => {
       }
     }, 500);
 
-    return () => clearTimeout(debounceTimeout.current); 
+    return () => clearTimeout(debounceTimeout.current);
   }, [query]);
 
   useEffect(() => {
     if (query.trim() && allResults.length > 0) {
       const options = {
         keys: ["title", "name"],
-        threshold: 0.4,
+        threshold: 0.2, 
+        minMatchCharLength: 2,
       };
 
       const fuse = new Fuse(allResults, options);
