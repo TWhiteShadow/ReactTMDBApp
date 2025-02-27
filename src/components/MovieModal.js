@@ -3,6 +3,13 @@ import React from "react";
 const MovieModal = ({ movie, onClose }) => {
   if (!movie) return null;
 
+  const getStarRating = (voteAverage) => {
+    const stars = (voteAverage / 2).toFixed(1);
+    return stars;
+  };
+
+  const starRating = getStarRating(movie.vote_average);
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={e => e.stopPropagation()}>
@@ -17,7 +24,7 @@ const MovieModal = ({ movie, onClose }) => {
         />
         <p><strong>Release Date:</strong> {movie.release_date}</p>
         <p><strong>Overview:</strong> {movie.overview}</p>
-        <p><strong>Vote Average:</strong> {movie.vote_average}</p>
+        <p><strong>Vote Average:</strong> {starRating} ⭐</p>
       </div>
     </div>
   );
