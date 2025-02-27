@@ -22,6 +22,7 @@ const MovieCard = ({ movie, onSelectMovie }) => {
       <div className="movie-info">
         <h2 className="movie-title">{movie.title || movie.name}</h2>
         {movie.media_type && <p className="movie-type">{movie.media_type.toUpperCase()}</p>}
+        {movie.release_date && <p className="movie-release-date">{movie.release_date}</p>}
       </div>
     </div>
   );

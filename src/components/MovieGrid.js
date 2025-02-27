@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import MovieCard from "./MovieCard";
 import MovieModal from "./MovieModal";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
 const MovieGrid = ({ movies }) => {
   const [selectedMovie, setSelectedMovie] = useState(null);
@@ -15,9 +17,19 @@ const MovieGrid = ({ movies }) => {
 
   return (
     <div className="movies-grid">
-      {movies.map((movie) => (
-        <MovieCard key={movie.id} movie={movie} onSelectMovie={handleSelectMovie} />
-      ))}
+      <Swiper
+        slidesPerView={"auto"}
+        spaceBetween={30}
+        centeredSlides={true}
+        
+        className="mySwiper"
+      >
+        {movies.map((movie) => (
+          <SwiperSlide key={movie.id}>
+            <MovieCard movie={movie} onSelectMovie={handleSelectMovie} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
       <MovieModal movie={selectedMovie} onClose={handleCloseModal} />
     </div>
   );
