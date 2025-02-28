@@ -35,7 +35,14 @@ const MovieCard = ({ movie }) => {
       <div className="movie-info">
 
         <h2 className="movie-title">{movie.title || movie.name}</h2>
-        {movie.media_type && <p className="movie-type">{movie.media_type.toUpperCase()}</p>}
+        {movie.media_type && (
+          <p className="movie-type">
+            {movie.media_type.toUpperCase()}{" "}
+            {movie.media_type === "movie" && "🎬"}
+            {movie.media_type === "person" && "👤"}
+            {movie.media_type === "tv" && "📺"}
+          </p>
+        )}
 
       </div>
       <button onClick={handleFavorite}>

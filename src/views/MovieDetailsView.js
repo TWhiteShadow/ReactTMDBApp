@@ -75,9 +75,8 @@ const MovieDetailsView = () => {
             <div className="right">
               <h1>{movie.title}</h1>
               <div className="flex">
-
                 <p><strong>Release Date:</strong> {movie.release_date}</p>
-                <p><strong>Vote Average:</strong> {movie.vote_average}</p>
+                <p><strong>Vote Average:</strong> {(Math.round((movie.vote_average / 2) * 10) / 10).toFixed(1)} ⭐</p>
                 <button onClick={handleFavorite}>
                   {favorite ? "❤️" : "🤍"}
                 </button>
@@ -94,7 +93,6 @@ const MovieDetailsView = () => {
           </div>
         </div>
       </div>
-
 
       <div className="comment-section">
         <textarea
