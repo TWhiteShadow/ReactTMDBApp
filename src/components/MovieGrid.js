@@ -18,8 +18,8 @@ const MovieGrid = ({ movies }) => {
   return (
     <div className="movies-grid">
       <Swiper
-        slidesPerView={"auto"}
-        spaceBetween={30}
+        slidesPerView={5} // why isn't {auto} working idk
+        spaceBetween={3}
         centeredSlides={true}
         
         className="mySwiper"

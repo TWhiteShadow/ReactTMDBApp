@@ -3,6 +3,7 @@ import React from "react";
 import HomeView from "./views/HomeView";
 import GenreView from "./views/GenreView";
 import SearchView from "./views/SearchView";
+import MovieDetailsView from "./views/MovieDetailsView";
 import NavBar from "./components/NavBar";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<HomeView />} />
         <Route path="/genre/:genreId" element={<GenreView />} />
         <Route path="/search" element={<SearchView />} />
+        <Route path="/movie/:id" element={<MovieDetailsView />} />
       </Routes>
     </Router>
   );
