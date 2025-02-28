@@ -96,8 +96,7 @@ nav select{
 }
 
 .search-input {
-  width: 80%;
-  max-width: 500px;
+  max-width: 100%;
   padding: 10px;
   font-size: 1rem;
   border-radius: 5px;
