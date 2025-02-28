@@ -46,7 +46,7 @@ const SearchBar = ({ onResults }) => {
     if (query.trim() && allResults.length > 0) {
       const options = {
         keys: ["title", "name"],
-        threshold: 0.2, 
+        threshold: 0.2,
         minMatchCharLength: 2,
       };
 

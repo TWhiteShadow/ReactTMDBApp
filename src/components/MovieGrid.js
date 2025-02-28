@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import MovieCard from "./MovieCard";
-import MovieModal from "./MovieModal";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
@@ -21,7 +20,9 @@ const MovieGrid = ({ movies }) => {
         slidesPerView={"auto"} // why isn't {auto} working idk
         spaceBetween={30}
         centeredSlides={false}
-        
+        slidesOffsetBefore={30}
+        slidesOffsetAfter={30}
+
         className="mySwiper"
       >
         {movies.map((movie) => (
@@ -30,7 +31,6 @@ const MovieGrid = ({ movies }) => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <MovieModal movie={selectedMovie} onClose={handleCloseModal} />
     </div>
   );
 };

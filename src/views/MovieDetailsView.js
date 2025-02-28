@@ -26,6 +26,7 @@ const MovieDetailsView = () => {
         isFavorite(data.id).then(setFavorite);
         getRating(data.id).then(setRating);
         getComments(data.id).then(setComments);
+        console.log("Movie details", data);
       } catch (error) {
         console.error("Error fetching movie details", error);
       }
@@ -44,6 +45,9 @@ const MovieDetailsView = () => {
   };
 
   const handleRating = async (newRating) => {
+    if (newRating === rating) {
+      newRating = 0;
+    }
     setRating(newRating);
     await saveRating(movie.id, newRating);
   };
@@ -62,28 +66,36 @@ const MovieDetailsView = () => {
 
   return (
     <div className="movie-details">
-      <h1>{movie.title}</h1>
-      <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="movie-poster" />
-      <p><strong>Release Date:</strong> {movie.release_date}</p>
-      <p><strong>Overview:</strong> {movie.overview}</p>
-      <p><strong>Vote Average:</strong> {movie.vote_average}</p>
-      
-      {/* Favorite Button */}
-      <button onClick={handleFavorite}>
-        {favorite ? "Remove from Favorites ❤️" : "Add to Favorites 🤍"}
-      </button>
+      <div className="background-image" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w1280${movie.backdrop_path})` }}>
+        <div className="content-container">
+          <div className="content">
+            <div className="left">
+              <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="movie-poster" />
+            </div>
+            <div className="right">
+              <h1>{movie.title}</h1>
+              <div className="flex">
 
-      {/* Rating System */}
-      <div className="rating">
-        <p><strong>Your Rating:</strong></p>
-        {[1, 2, 3, 4, 5].map((star) => (
-          <span key={star} onClick={() => handleRating(star)} style={{ cursor: "pointer", fontSize: "24px" }}>
-            {star <= rating ? "⭐" : "☆"}
-          </span>
-        ))}
+                <p><strong>Release Date:</strong> {movie.release_date}</p>
+                <p><strong>Vote Average:</strong> {movie.vote_average}</p>
+                <button onClick={handleFavorite}>
+                  {favorite ? "❤️" : "🤍"}
+                </button>
+              </div>
+              <p><strong>Overview:</strong> {movie.overview}</p>
+              <div className="rating">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <span key={star} onClick={() => handleRating(star)} style={{ cursor: "pointer", fontSize: "24px" }}>
+                    {star <= rating ? "⭐" : "☆"}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Comment Section */}
+
       <div className="comment-section">
         <textarea
           value={comment}
@@ -94,7 +106,6 @@ const MovieDetailsView = () => {
         <button onClick={handleComment}>Submit Review</button>
       </div>
 
-      {/* Comments Feed */}
       <div className="comments-feed">
         <h3>Latest Reviews</h3>
         {comments.length === 0 ? (

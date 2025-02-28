@@ -1,24 +1,45 @@
 body {
   margin: 0;
+  min-height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #003153;
+  background-image: linear-gradient(315deg, #003153 0%, #1B1B1B 74%);
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-body{
-  min-height: 100vh;
-  background-color: #121212;
+a {
+  display: block;
+  position: relative;
+  padding: 0.2em 0;
+  overflow: hidden;
+  text-decoration: none;
+  color: white;
+}
+
+a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -100%;
+  width: 100%;
+  height: 0.1em;
+  background-color: hotpink;
+  transition: transform 0.3s ease-in-out;
+}
+
+a:hover::after,
+a:focus::after {
+  transform: translateX(100%);
 }
 
 nav {
-  background-color: #121212;
+  background-color: #12121254;
   color: white;
   padding: 10px 10px 0;
   text-align: center;
@@ -26,15 +47,17 @@ nav {
   display: flex;
 }
 
-nav select{
+nav select {
   margin-bottom: 0;
+}
+
+nav a {
+  display: flex;
 }
 
 .container {
   text-align: center;
   font-family: Arial, sans-serif;
-  padding: 0 20px 20px 20px;
-  background-color: #121212;
   color: white;
 }
 
@@ -49,18 +72,27 @@ nav select{
   white-space: nowrap;
   gap: 20px;
   justify-content: center;
-  padding: 10px;
 }
 
 .movie-card {
   display: inline-block;
-  background: #1e1e1e;
-  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.49);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(9.5px);
+  -webkit-backdrop-filter: blur(9.5px);
   transition: transform 0.3s ease;
   cursor: pointer;
   width: 300px;
   height: 100%;
   overflow: hidden;
+  position: relative;
+}
+
+.movie-card button {
+  position: absolute;
+  top: 0;
+  right: 5px;
 }
 
 .movie-card:hover {
@@ -87,9 +119,6 @@ nav select{
   color: #ff9800;
 }
 
-
-
-/* SearchBar.css */
 .search-container {
   text-align: center;
   margin-bottom: 20px;
@@ -103,7 +132,6 @@ nav select{
   border: none;
   outline: none;
 }
-
 
 .modal-overlay {
   position: fixed;
@@ -146,12 +174,93 @@ nav select{
   border-radius: 8px;
 }
 
+.movie-details {
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.background-image {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.left {
+  flex: 1;
+  padding: 20px;
+}
+
+.right {
+  flex: 1;
+  align-content: center;
+}
+
+.content-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.2), rgb(0, 0, 0, 0.7) 25%, rgba(0, 0, 0, 0.2) 100%);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+}
+
+.content {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.content img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.swiper {
+  padding-bottom: 50px;
+}
+
+
+.swiper-slide {
+  width: auto;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+
+button {
+  border: none;
+  padding: 0 10px;
+  font-size: 2rem;
+  background: transparent;
+  text-shadow: 0 -0.5rem 1rem #ffffff0e, 0 0.5rem 1rem #00000038;
+}
+
+.rating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  width: 150px;
+}
+
+.rating span {
+  font-size: 1.5rem;
+  width: 30px;
+}
+
 @keyframes slideUp {
   from {
     transform: translateY(100%);
     background-color: rgba(0, 0, 0, 0);
     backdrop-filter: blur(0);
   }
+
   to {
     transform: translateY(0);
     background-color: rgba(0, 0, 0, 0.5);
@@ -163,15 +272,8 @@ nav select{
   from {
     transform: translateY(0);
   }
+
   to {
     transform: translateY(100%);
   }
-}
-
-.movie-details{
-  color: white;
-}
-
-.swiper-slide{
-  width: auto;
 }

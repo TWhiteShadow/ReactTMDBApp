@@ -31,6 +31,9 @@ const NavBar = () => {
     <nav>
       <ul>
         <li>
+          <Link to="/">Raph's TMDB React App 🎥</Link>
+        </li>
+        <li>
           <Link to="/">Home</Link>
         </li>
         <li>

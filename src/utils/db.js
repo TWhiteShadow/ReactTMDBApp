@@ -51,41 +51,41 @@ export const getRating = async (movieId) => {
 
 // Save a new comment
 export const saveComment = async (movieId, text) => {
-    const db = await openDB();
-    return new Promise((resolve, reject) => {
-      const tx = db.transaction(COMMENT_STORE, "readwrite");
-      const store = tx.objectStore(COMMENT_STORE);
-      const comment = { movieId, text, timestamp: Date.now() };
-      const request = store.add(comment);
-      
-      request.onsuccess = () => resolve(comment);
-      request.onerror = () => reject("Failed to save comment");
-    });
-  };
-  
-  export const getComments = async (movieId) => {
-    const db = await openDB();
-    return new Promise((resolve) => {
-      const tx = db.transaction(COMMENT_STORE, "readonly");
-      const store = tx.objectStore(COMMENT_STORE);
-      const index = store.index("movieId");
-      const comments = [];
-      const request = index.openCursor(IDBKeyRange.only(movieId), "prev"); // Get newest first
-  
-      request.onsuccess = (event) => {
-        const cursor = event.target.result;
-        if (cursor && comments.length < 5) {
-          comments.push(cursor.value);
-          cursor.continue();
-        } else {
-          resolve(comments);
-        }
-      };
-  
-      request.onerror = () => resolve([]);
-    });
-  };
-  
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(COMMENT_STORE, "readwrite");
+    const store = tx.objectStore(COMMENT_STORE);
+    const comment = { movieId, text, timestamp: Date.now() };
+    const request = store.add(comment);
+
+    request.onsuccess = () => resolve(comment);
+    request.onerror = () => reject("Failed to save comment");
+  });
+};
+
+export const getComments = async (movieId) => {
+  const db = await openDB();
+  return new Promise((resolve) => {
+    const tx = db.transaction(COMMENT_STORE, "readonly");
+    const store = tx.objectStore(COMMENT_STORE);
+    const index = store.index("movieId");
+    const comments = [];
+    const request = index.openCursor(IDBKeyRange.only(movieId), "prev"); // Get newest first
+
+    request.onsuccess = (event) => {
+      const cursor = event.target.result;
+      if (cursor && comments.length < 5) {
+        comments.push(cursor.value);
+        cursor.continue();
+      } else {
+        resolve(comments);
+      }
+    };
+
+    request.onerror = () => resolve([]);
+  });
+};
+
 
 // Add movie to favorites
 export const addFavorite = async (movie) => {
