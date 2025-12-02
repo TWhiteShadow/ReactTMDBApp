@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 
-const API_KEY = "65b8c81a835e49e2a499028aeaf7ab9b";
-const BASE_URL = "https://api.themoviedb.org/3";
+const API_KEY = process.env.REACT_APP_API_KEY;
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const NavBar = () => {
   const [genres, setGenres] = useState([]);
